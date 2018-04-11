@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+    <classPathEntry location="D:\ProgramFiles\apache-maven-3.3.3\repos\mysql\mysql-connector-java\5.1.6\mysql-connector-java-5.1.6.jar"/>
+    <context id="context1" targetRuntime="MyBatis3">
+        <!-- 防止关键字报错 -->
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        <!-- 格式化java代码 -->
+        <property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
+        <!-- 格式化XML代码 -->
+        <property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter"/>
+        <commentGenerator>
+            <!-- 移除MBG注释 -->
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://192.168.0.5:3306/yefeng?useUnicode=true&amp;characterEncoding=UTF-8"
+                        userId="root" password="root" />
+        <javaModelGenerator targetPackage="com.ding.druid.model.entity"
+                            targetProject="D:\workspace-demo\read-write-sparation\src\main\java"/>
+        <sqlMapGenerator targetPackage="com.ding.druid.mapping"
+                         targetProject="D:\workspace-demo\read-write-sparation\src\main\java"/>
+        <javaClientGenerator targetPackage="com.ding.druid.dao"
+                             targetProject="D:\workspace-demo\read-write-sparation\src\main\java" type="XMLMAPPER"/>
+        <table schema="yefeng" domainObjectName="BossUser" tableName="boss_user" delimitAllColumns="true">
+            <!-- MySQL自动生成主键 -->
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+    </context>
+</generatorConfiguration>

@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ding.druid.dao.BossUserMapper" >
+  <resultMap id="BaseResultMap" type="com.ding.druid.model.entity.BossUser" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="login_name" property="loginName" jdbcType="VARCHAR" />
+    <result column="real_name" property="realName" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="salt" property="salt" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
+    <result column="department_id" property="departmentId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    `id`, `login_name`, `real_name`, `sex`, `password`, `salt`, `status`, `last_login_time`, 
+    `department_id`, `create_time`, `update_time`
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ding.druid.model.criteria.BossUserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from boss_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from boss_user
+    where `id` = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from boss_user
+    where `id` = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ding.druid.model.criteria.BossUserExample" >
+    delete from boss_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ding.druid.model.entity.BossUser" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into boss_user (`login_name`, `real_name`, `sex`, 
+      `password`, `salt`, `status`, 
+      `last_login_time`, `department_id`, `create_time`, 
+      `update_time`)
+    values (#{loginName,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, 
+      #{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{lastLoginTime,jdbcType=TIMESTAMP}, #{departmentId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ding.druid.model.entity.BossUser" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into boss_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="loginName != null" >
+        `login_name`,
+      </if>
+      <if test="realName != null" >
+        `real_name`,
+      </if>
+      <if test="sex != null" >
+        `sex`,
+      </if>
+      <if test="password != null" >
+        `password`,
+      </if>
+      <if test="salt != null" >
+        `salt`,
+      </if>
+      <if test="status != null" >
+        `status`,
+      </if>
+      <if test="lastLoginTime != null" >
+        `last_login_time`,
+      </if>
+      <if test="departmentId != null" >
+        `department_id`,
+      </if>
+      <if test="createTime != null" >
+        `create_time`,
+      </if>
+      <if test="updateTime != null" >
+        `update_time`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="loginName != null" >
+        #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="lastLoginTime != null" >
+        #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="departmentId != null" >
+        #{departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ding.druid.model.criteria.BossUserExample" resultType="java.lang.Integer" >
+    select count(*) from boss_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update boss_user
+    <set >
+      <if test="record.id != null" >
+        `id` = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.loginName != null" >
+        `login_name` = #{record.loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.realName != null" >
+        `real_name` = #{record.realName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null" >
+        `sex` = #{record.sex,jdbcType=INTEGER},
+      </if>
+      <if test="record.password != null" >
+        `password` = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salt != null" >
+        `salt` = #{record.salt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        `status` = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.lastLoginTime != null" >
+        `last_login_time` = #{record.lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.departmentId != null" >
+        `department_id` = #{record.departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        `create_time` = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        `update_time` = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update boss_user
+    set `id` = #{record.id,jdbcType=INTEGER},
+      `login_name` = #{record.loginName,jdbcType=VARCHAR},
+      `real_name` = #{record.realName,jdbcType=VARCHAR},
+      `sex` = #{record.sex,jdbcType=INTEGER},
+      `password` = #{record.password,jdbcType=VARCHAR},
+      `salt` = #{record.salt,jdbcType=VARCHAR},
+      `status` = #{record.status,jdbcType=INTEGER},
+      `last_login_time` = #{record.lastLoginTime,jdbcType=TIMESTAMP},
+      `department_id` = #{record.departmentId,jdbcType=INTEGER},
+      `create_time` = #{record.createTime,jdbcType=TIMESTAMP},
+      `update_time` = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ding.druid.model.entity.BossUser" >
+    update boss_user
+    <set >
+      <if test="loginName != null" >
+        `login_name` = #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        `real_name` = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        `sex` = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="password != null" >
+        `password` = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        `salt` = #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        `status` = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="lastLoginTime != null" >
+        `last_login_time` = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="departmentId != null" >
+        `department_id` = #{departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        `create_time` = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        `update_time` = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where `id` = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ding.druid.model.entity.BossUser" >
+    update boss_user
+    set `login_name` = #{loginName,jdbcType=VARCHAR},
+      `real_name` = #{realName,jdbcType=VARCHAR},
+      `sex` = #{sex,jdbcType=INTEGER},
+      `password` = #{password,jdbcType=VARCHAR},
+      `salt` = #{salt,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=INTEGER},
+      `last_login_time` = #{lastLoginTime,jdbcType=TIMESTAMP},
+      `department_id` = #{departmentId,jdbcType=INTEGER},
+      `create_time` = #{createTime,jdbcType=TIMESTAMP},
+      `update_time` = #{updateTime,jdbcType=TIMESTAMP}
+    where `id` = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
